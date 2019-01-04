@@ -1,0 +1,30 @@
+{
+  "name": "smart-env",
+  "version": "1.0.0",
+  "description": "Smart ENV library for Node applications ",
+  "main": "index.js",
+  "scripts": {
+    "lint": "node ./node_modules/eslint/bin/eslint.js .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jessety/smart-env.git"
+  },
+  "keywords": [
+    "env"
+  ],
+  "author": "Jesse T Youngblood <jessetyoungblood@gmail.com> (http://jesseyoungblood.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jessety/smart-env/issues"
+  },
+  "homepage": "https://github.com/jessety/smart-env#readme",
+  "dependencies": {
+    "envfile": "^3.0.0"
+  },
+  "devDependencies": {
+    "@jessety/eslint-config": "^1.0.0",
+    "eslint": "^5.11.1"
+  }
+}
