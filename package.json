@@ -20,11 +20,9 @@
     "url": "https://github.com/jessety/smart-env/issues"
   },
   "homepage": "https://github.com/jessety/smart-env#readme",
-  "dependencies": {
-    "envfile": "^3.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@jessety/eslint-config": "^1.0.0",
-    "eslint": "^5.11.1"
+    "eslint": "^5.11.1",
+    "@jessety/eslint-config": "^1.0.0"
   }
 }

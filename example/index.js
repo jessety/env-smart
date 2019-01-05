@@ -1,9 +1,9 @@
 'use strict';
 
-const env = require('../index')(__dirname);
+const env = require('../index').load(__dirname);
 // Manually set our directory to the example path to the example directory.
 // In most cases, all you'd need is:
-// const env = require('smart-env')();
+// const env = require('smart-env').load();
 
 console.log(`Hello, world! Loaded ${Object.keys(env).length} env values.`);
 
@@ -17,5 +17,4 @@ const log = env.VERBOSE ? (...messages) => console.log('DEBUG:', ...messages) : 
 
 log('This will only be displayed if the `VERBOSE` env is set to true. If you\'re seeing this, it was!');
 
-console.log('Parsed env values:');
-console.log(env);
+// console.log(env);
