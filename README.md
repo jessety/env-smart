@@ -31,7 +31,7 @@ VERBOSE=FALSE
 Once those two files are set, loading is a breeze:
 
 ```javascript
-const env = require('smart-env')();
+const env = require('smart-env').load();
 
 // Because a type was defined for the 'VERBOSE' key, it's guarenteed to be a boolean value
 // -- therefore, we can use a quick ternary operator for a one-liner log function:
@@ -55,4 +55,4 @@ Be careful to never commit your `.env` file!
 
 ## License
 
-MIT © Jesse Youngblood
+MIT © Jesse T Youngblood
