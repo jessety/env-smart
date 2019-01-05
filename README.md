@@ -1,7 +1,7 @@
 # env-smart
 > Library for Node applications that enables typed values and defaults in `env` values
 
-`env-smart` is designed to solve two issues with using `.env` files:
+`env-smart` is a lightweight, zero-dependency library designed to solve two issues with using `.env` files:
 - Variable types
 - Default values
 

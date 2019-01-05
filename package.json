@@ -1,7 +1,7 @@
 {
   "name": "env-smart",
   "version": "1.1.0",
-  "description": "Smart ENV library for Node applications ",
+  "description": "Smarter .env config library, with type definitions and default values",
   "main": "index.js",
   "scripts": {
     "lint": "node ./node_modules/eslint/bin/eslint.js .",
@@ -9,17 +9,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jessety/smart-env.git"
+    "url": "git+https://github.com/jessety/env-smart.git"
   },
   "keywords": [
-    "env"
+    "env",
+    "environment",
+    "environmental",
+    "settings",
+    "config",
+    "configuration"
   ],
   "author": "Jesse T Youngblood <jessetyoungblood@gmail.com> (http://jesseyoungblood.com)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jessety/smart-env/issues"
+    "url": "https://github.com/jessety/env-smart/issues"
   },
-  "homepage": "https://github.com/jessety/smart-env#readme",
+  "homepage": "https://github.com/jessety/env-smart#readme",
   "dependencies": {},
   "devDependencies": {
     "eslint": "^5.11.1",
