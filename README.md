@@ -22,6 +22,7 @@ Types are defined in the `.env.types` file:
 PORT=NUMBER
 VERBOSE=BOOLEAN
 ```
+
 Default values are defined in the `.env.defaults` file:
 ```ini
 PORT=80
@@ -29,7 +30,6 @@ VERBOSE=FALSE
 ```
 
 Once those two files are set, loading is a breeze:
-
 ```javascript
 const env = require('env-smart').load();
 
@@ -38,6 +38,14 @@ const env = require('env-smart').load();
 const log = env.VERBOSE ? (...messages) => console.log('DEBUG:', ...messages) : () => {};
 
 log('This will only be visible if the `VERBOSE` env is set to true.');
+```
+
+If neither value is otherwise defined, the env variable would parse to:
+```json
+{
+  "PORT": 80,
+  "VERBOSE": false
+}
 ```
 
 From a terminal:
