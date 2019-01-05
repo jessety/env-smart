@@ -12,7 +12,7 @@ const cache = {};
 function load(directory) {
 
   if (directory === undefined) {
-    directory = __dirname;
+    directory = process.cwd();
   }
 
   // If we've already parsed the env file, great! We're done.
