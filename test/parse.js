@@ -30,7 +30,25 @@ SAMPLE_STRING="This is a string"`,
   'JSON_BLOB={"test": true, string: "this is a string"}',
 
   // JSON string contents that's quoted
-  'JSON_BLOB="{"test": true, string: "this is a string"}"'
+  'JSON_BLOB="{"test": true, string: "this is a string"}"',
+
+  // Chaos
+  `
+testing  = 1
+
+verbose=  TRUE
+=
+key=
+=value
+test
+    =
+    =  asdf
+     #
+#   
+=
+==
+===
+success =       42 = 10`
 ];
 
 const parsed = unparsed.map(raw => {

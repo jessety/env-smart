@@ -3,4 +3,4 @@
 const load = require('./load');
 const { parse, parseFile } = require('./parse');
 
-module.exports = { load, parse, parseFile };
+module.exports = { load, config: load, parse, parseFile };

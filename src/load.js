@@ -2,40 +2,45 @@
 
 const { parseFile } = require('./parse');
 
-const cache = {};
-
 /**
  * Load env values
- * @param   {string} [directory=__dirname] - Which directory to load .env files from. Defaults to __dirname if omitted
+ * @param   {object} [parameters] - Loading options
  * @returns {object} - Object containing env values found in a .env file (or the process )
  */
-function load(directory) {
+function load(options) {
 
-  if (directory === undefined) {
-    directory = process.cwd();
+  if (typeof options !== 'object') {
+    options = {};
   }
 
-  // If we've already parsed the env file, great! We're done.
-  // (unless we parsed a different directory before)
-  if (cache[directory] !== undefined) {
-    return cache[directory];
+  if (typeof options.directory !== 'string') {
+    options.directory = process.cwd();
   }
 
-  // Define paths for ENV files
-  const paths = {
-    file: `${directory}/.env`,
-    defaults: `${directory}/.env.defaults`,
-    types: `${directory}/.env.types`
-  };
+  if (typeof options.uppercase !== 'boolean') {
+    options.uppercase = false;
+  }
+
+  if (typeof options.lowercase !== 'boolean') {
+    options.lowercase = false;
+  }
+
+  if (typeof options.replace !== 'boolean') {
+    options.replace = true;
+  }
+
+  const log = options.verbose ? (...messages) => console.log('env-smart:', ...messages) : () => {};
+
+  // log(`Loading "${options.directory}/.env"...`);
 
   // Parse the contents of the env file, if one exists
-  const file = parseFile(paths.file) || {};
+  const file = parseFile(`${options.directory}/.env`, options) || {};
 
   // Parse default values for our env variables
-  const defaults = parseFile(paths.defaults) || {};
+  const defaults = parseFile(`${options.directory}/.env.defaults`, options) || {};
 
   // Parse variable types for our env variables.
-  const types = parseFile(paths.types) || {};
+  const types = parseFile(`${options.directory}/.env.types`, options) || {};
 
   const env = {};
 
@@ -49,30 +54,68 @@ function load(directory) {
     env[key] = value;
   }
 
-  // Lastly, all values from the process env - allows overwriting the .env file wiht process env
+  // Lastly, all values from the process env - allows overwriting the .env file with process env
   for (const [key, value] of Object.entries(process.env)) {
-    env[key] = value;
+
+    if (options.lowercase === true) {
+
+      env[key.toLowerCase()] = value;
+
+    } else if (options.lowercase === true) {
+
+      env[key.toUpperCase()] = value;
+
+    } else {
+
+      env[key] = value;
+    }
   }
 
   // Cast values into the types specified in the .env.types file, if defined
-  for (const [key, type] of Object.entries(types)) {
+  // eslint-disable-next-line prefer-const
+  for (let [key, type] of Object.entries(types)) {
 
     if (!env.hasOwnProperty(key)) {
       continue;
     }
 
-    if (type.toLowerCase() === 'boolean') {
+    type = type.toLowerCase();
+
+    if (type === 'boolean') {
       env[key] = (env[key].toLowerCase() === 'true');
     }
 
-    if (type.toLowerCase() === 'number') {
+    if (type === 'number') {
       env[key] = Number(env[key]);
     }
 
-    // ..obviously adding objects and arrays would be trivial, but I'm not sure I should encourage that.
+    // If the type is either an object or an array, assume it was serialized as JSON.
+    if (['object', 'array'].includes(type)) {
+
+      try {
+
+        env[key] = JSON.parse(env[key]);
+
+      } catch (e) {
+
+        log(`ERROR: Could not parse JSON value for env key "${key}": ${e.message}`);
+
+        if (type === 'object') {
+
+          env[key] = {};
+
+        } else if (type === 'array') {
+
+          env[key] = [];
+        }
+      }
+    }
   }
 
-  cache[directory] = env;
+  if (options.replace === true) {
+    log('Replaced contents of "process.env".');
+    process.env = env;
+  }
 
   return env;
 }

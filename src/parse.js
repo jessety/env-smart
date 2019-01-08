@@ -7,23 +7,34 @@ const fs = require('fs');
  * @param   {string} path - The path of the env file to parse
  * @returns {object} - A key-value dictionary representation of the env file contents
  */
-function parseFile(path, encoding) {
+function parseFile(path, options) {
+
+  if (typeof options !== 'object') {
+    options = {};
+  }
 
   if (!fs.existsSync(path)) {
+
+    if (options.verbose === true) {
+      console.log('env-smart:', `.env file does not exist at path "${path}"`);
+    }
     return;
   }
 
-  if (encoding === undefined) {
-    encoding = 'utf8';
+  if (typeof options.encoding !== 'string') {
+    options.encoding = 'utf8';
   }
 
-  const contents = fs.readFileSync(path, { encoding });
+  const contents = fs.readFileSync(path, { encoding: options.encoding });
 
   if (!contents) {
+    if (options.verbose === true) {
+      console.log('env-smart:', `Could not load contents of file at path "${path}"`);
+    }
     return;
   }
 
-  return parse(contents);
+  return parse(contents, options);
 }
 
 /**
@@ -31,7 +42,11 @@ function parseFile(path, encoding) {
  * @param   {string} data - env data
  * @returns {object} - A key-value dictionary representation of the env file contents
  */
-function parse(data) {
+function parse(data, options) {
+
+  if (typeof options !== 'object') {
+    options = {};
+  }
 
   const env = {};
 
@@ -41,22 +56,37 @@ function parse(data) {
 
     line = line.trim();
 
-    // Ignore all blank lines, or lines that start with #
+    // Ignore all blank/whitespace lines, or lines that start with #
     if (line.length === 0 || line.charAt(0) === '#') {
       continue;
     }
 
     const components = line.split('=');
 
-    // Ignore lines that don't at least have a key and a value
+    // Ignore lines that don't at least have a key and a value, even if that value is a blank string
     if (components.length < 2) {
-      return;
+      continue;
     }
 
-    const [ key, value ] = components;
+    let [ key, value ] = components;
 
-    // Remove whitespace, and quotes from the beginning and end of the value string
-    env[key.trim()] = value.replace(/(^")|("$)/g, '').trim();
+    // Ignore lines with blank keys
+    if (key === '') {
+      continue;
+    }
+
+    if (options.uppercase === true) {
+      key = key.toUpperCase();
+    }
+
+    if (options.lowercase === true) {
+      key = key.toLowerCase();
+    }
+
+    // Remove whitespace, and double quotes from the beginning and end of the value string
+    value = value.replace(/(^")|("$)/g, '').trim();
+
+    env[key.trim()] = value;
   }
 
   return env;

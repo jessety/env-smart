@@ -31,11 +31,11 @@ VERBOSE=FALSE
 
 Once those two files are set, loading is a breeze:
 ```javascript
-const env = require('env-smart').load();
+require('env-smart').load();
 
 // Because a type was defined for the 'VERBOSE' key, it's guarenteed to be a boolean value
 // -- therefore, we can use a quick ternary operator for a one-liner log function:
-const log = env.VERBOSE ? (...messages) => console.log('DEBUG:', ...messages) : () => {};
+const log = process.env.VERBOSE ? (...messages) => console.log('DEBUG:', ...messages) : () => {};
 
 log('This will only be visible if the `VERBOSE` env is set to true.');
 ```
@@ -48,18 +48,50 @@ If neither value is otherwise defined, the env variable would parse to:
 }
 ```
 
-From a terminal:
+Process env values take precedence over the contents of a `.env` file, and type checking is still applied.
+
 ```bash 
 $ export PORT=8080 && node index.js
 ```
 
-Lastly, using a `.env` file makes managing different configurations between deployments much easier:
+```javascript
+require('env-smart').load();
+console.log(`${process.env.PORT}: ${typeof process.env.PORT}`);
+// 8080: number
+```
+
+Using a `.env` file makes managing different configurations between deployments much easier:
 ```ini
 PORT=8080
 VERBOSE=TRUE
 ```
 Be careful to never commit your `.env` file!
 
+### Options
+
+The `load()` function supports a few optional parameters:
+
+```javascript
+require('env-smart').load({
+  directory: __dirname, // manually specify the directory to load .env files from
+  encoding: 'utf8', // manually specify the encoding of the .env files
+  lowercase: true, // make all keys lower case.
+  // uppercase: true, // make all keys upper case
+  verbose: true, // output debug information to the console
+});
+
+// The 'PORT' value has been re-named 'port' by including the `lowercase` option
+console.log(`${process.env.port}: ${typeof process.env.port}`);
+
+```
+
+Include `replace: false` option to return the parsed env values instead of replacing `process.env`:
+
+```javascript
+const settings = require('env-smart').load({ replace: false });
+
+console.log(settings.PORT);
+```
 
 ## License
 
