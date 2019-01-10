@@ -1,6 +1,7 @@
 'use strict';
 
 const { parseFile } = require('./parse');
+const type = require('./type');
 
 /**
  * Load env values
@@ -12,6 +13,8 @@ function load(options) {
   if (typeof options !== 'object') {
     options = {};
   }
+
+  // Set up default parameters
 
   if (typeof options.directory !== 'string') {
     options.directory = process.cwd();
@@ -29,7 +32,7 @@ function load(options) {
     options.replace = true;
   }
 
-  const log = options.verbose ? (...messages) => console.log('env-smart:', ...messages) : () => {};
+  // const log = options.verbose ? (...messages) => console.log('env-smart:', ...messages) : () => {};
 
   // log(`Loading "${options.directory}/.env"...`);
 
@@ -47,6 +50,11 @@ function load(options) {
   // First, entries for all default values defined in .env.defaults
   for (const [key, value] of Object.entries(defaults)) {
     env[key] = value;
+
+    // If types aren't declared for these values, use the types parsed from the defaults file
+    if (types[key] === undefined) {
+      types[key] = typeof value;
+    }
   }
 
   // Add all values from either a .env file or the process env
@@ -71,49 +79,17 @@ function load(options) {
     }
   }
 
-  // Cast values into the types specified in the .env.types file, if defined
-  // eslint-disable-next-line prefer-const
-  for (let [key, type] of Object.entries(types)) {
+  // Cast values into the types specified in the .env.types file, if defined.
+  for (const [key, intendedType] of Object.entries(types)) {
 
     if (!env.hasOwnProperty(key)) {
       continue;
     }
 
-    type = type.toLowerCase();
-
-    if (type === 'boolean') {
-      env[key] = (env[key].toLowerCase() === 'true');
-    }
-
-    if (type === 'number') {
-      env[key] = Number(env[key]);
-    }
-
-    // If the type is either an object or an array, assume it was serialized as JSON.
-    if (['object', 'array'].includes(type)) {
-
-      try {
-
-        env[key] = JSON.parse(env[key]);
-
-      } catch (e) {
-
-        log(`ERROR: Could not parse JSON value for env key "${key}": ${e.message}`);
-
-        if (type === 'object') {
-
-          env[key] = {};
-
-        } else if (type === 'array') {
-
-          env[key] = [];
-        }
-      }
-    }
+    env[key] = type(env[key], intendedType, options);
   }
 
   if (options.replace === true) {
-    log('Replaced contents of "process.env".');
     process.env = env;
   }
 

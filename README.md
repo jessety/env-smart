@@ -29,7 +29,13 @@ PORT=80
 VERBOSE=FALSE
 ```
 
-Once those two files are set, loading is a breeze:
+Alternatively, you can declare both default values and types in the `.env.defaults` file:
+```ini
+PORT=80=NUMBER
+VERBOSE=FALSE=BOOLEAN
+```
+
+Once defaults and types are set, loading is a breeze:
 ```javascript
 require('env-smart').load();
 
@@ -44,7 +50,7 @@ If neither value is otherwise defined, the env variable would parse to:
 ```json
 {
   "PORT": 80,
-  "VERBOSE": false
+ "VERBOSE": false
 }
 ```
 
@@ -74,11 +80,11 @@ The `load()` function supports a few optional parameters:
 ```javascript
 require('env-smart').load({
   directory: __dirname, // manually specify the directory to load .env files from
-  encoding: 'utf8', // manually specify the encoding of the .env files
-  lowercase: true, // make all keys lower case.
-  // uppercase: true, // make all keys upper case
-  verbose: true, // output debug information to the console
-});
+                           encoding: 'utf8', // manually specify the encoding of the .env files
+                           lowercase: true, // make all keys lower case.
+                           // uppercase: true, // make all keys upper case
+                           verbose: true, // output debug information to the console
+                          });
 
 // The 'PORT' value has been re-named 'port' by including the `lowercase` option
 console.log(`${process.env.port}: ${typeof process.env.port}`);

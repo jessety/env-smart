@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const type = require('./type');
 
 /**
  * Parse the contents of an env file
@@ -68,7 +69,7 @@ function parse(data, options) {
       continue;
     }
 
-    let [ key, value ] = components;
+    let [ key, value, intendedType ] = components;
 
     // Ignore lines with blank keys
     if (key === '') {
@@ -85,6 +86,12 @@ function parse(data, options) {
 
     // Remove whitespace, and double quotes from the beginning and end of the value string
     value = value.replace(/(^")|("$)/g, '').trim();
+
+    if (intendedType !== undefined) {
+      // A type was defined, like this:
+      // PORT=2112=NUMBER
+      value = type(value, intendedType, options);
+    }
 
     env[key.trim()] = value;
   }

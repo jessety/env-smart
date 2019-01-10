@@ -16,6 +16,10 @@ VERBOSE=FALSE `,
 # Don't change this
 SSL_PORT=443`,
 
+  // Typed values
+  `PORT=80=NUMBER
+VERBOSE=FALSE=BOOLEAN`,
+
   // Blank lines
   `
 
@@ -27,10 +31,16 @@ SAMPLE_VALUE=1234
 SAMPLE_STRING="This is a string"`,
 
   // JSON string contents
-  'JSON_BLOB={"test": true, string: "this is a string"}',
+  'JSON_BLOB={"test": true, "string": "this is a string"}',
+
+  // JSON string contents with a declared type
+  'JSON_BLOB={"test": true, "string": "this is a string"}=OBJECT',
 
   // JSON string contents that's quoted
-  'JSON_BLOB="{"test": true, string: "this is a string"}"',
+  'JSON_BLOB="{"test": true, "string": "this is a string"}"',
+
+  // JSON string contents that's quoted
+  'JSON_BLOB="{"test": true, "string": "this is a string"}"=OBJECT',
 
   // Chaos
   `
@@ -41,9 +51,9 @@ verbose=  TRUE
 key=
 =value
 test
-    =
-    =  asdf
-     #
+=
+=  asdf
+#
 #   
 =
 ==
