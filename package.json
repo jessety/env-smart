@@ -1,6 +1,6 @@
 {
   "name": "env-smart",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Smarter .env config library, with type definitions and default values",
   "main": "index.js",
   "scripts": {
