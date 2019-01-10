@@ -27,7 +27,7 @@
   "homepage": "https://github.com/jessety/env-smart#readme",
   "dependencies": {},
   "devDependencies": {
-    "@jessety/eslint-config": "^1.0.1",
+    "@jessety/eslint-config": "^1.0.3",
     "eslint": "^5.12.0"
   }
 }
