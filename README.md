@@ -80,11 +80,11 @@ The `load()` function supports a few optional parameters:
 ```javascript
 require('env-smart').load({
   directory: __dirname, // manually specify the directory to load .env files from
-                           encoding: 'utf8', // manually specify the encoding of the .env files
-                           lowercase: true, // make all keys lower case.
-                           // uppercase: true, // make all keys upper case
-                           verbose: true, // output debug information to the console
-                          });
+  encoding: 'utf8', // manually specify the encoding of the .env files
+  lowercase: true, // make all keys lower case.
+  // uppercase: true, // make all keys upper case
+  verbose: true, // output debug information to the console
+});
 
 // The 'PORT' value has been re-named 'port' by including the `lowercase` option
 console.log(`${process.env.port}: ${typeof process.env.port}`);
