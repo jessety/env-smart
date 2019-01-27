@@ -28,6 +28,6 @@
   "dependencies": {},
   "devDependencies": {
     "@jessety/eslint-config": "^1.0.3",
-    "eslint": "^5.12.0"
+    "eslint": "^5.12.1"
   }
 }
