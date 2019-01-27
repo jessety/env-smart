@@ -1,13 +1,14 @@
 # env-smart
 > Library for Node applications that enables typed values and defaults in `env` values
 
-`env-smart` is a lightweight, zero-dependency library designed to solve two issues with using `.env` files:
+`env-smart` is a lightweight, zero-dependency library designed to solve two common issues with using environmental variables and `.env` files:
 - Variable types
 - Default values
 
-In both sitautions, logic specific to the environmental variables (type casting, default checking) ends up seeping into the application logic. If any of these values are re-used in different parts of the app, it can even lead to some very un-DRY repetition.
+In both sitautions, logic specific to the environmental variables (type casting, default checking) ends up seeping into the application logic. If any of these values are re-used in different parts of the app this can even lead to duplication.it can even lead to some very un-DRY repetition.
 
-Instead, `env-smart` enables defining default values and types for all environmental variables in their own configuration files. It supports `.env` files if one is defined, but defaults and type checking are also applied to the `process.env` if not.
+Instead, `env-smart` enables defining default values and types for all environmental variables in their own configuration files. It supports `.env` files if one is defined, but defaults and type checking are applied to the process' env if not.
+
 
 ## Install
 
@@ -15,12 +16,22 @@ Instead, `env-smart` enables defining default values and types for all environme
 $ npm install --save env-smart
 ```
 
+
 ## Usage
+
+```javascript
+require('env-smart').load();
+
+// process.env is now populated with the contents the .env file
+
+console.log(process.env.PORT);
+```
+
 
 Types are defined in the `.env.types` file:
 ```ini
-PORT=NUMBER
-VERBOSE=BOOLEAN
+PORT=number
+VERBOSE=boolean
 ```
 
 Default values are defined in the `.env.defaults` file:
@@ -31,22 +42,19 @@ VERBOSE=FALSE
 
 Alternatively, you can declare both default values and types in the `.env.defaults` file:
 ```ini
-PORT=80=NUMBER
-VERBOSE=FALSE=BOOLEAN
+PORT=80=number
+VERBOSE=FALSE=boolean
 ```
 
 Once defaults and types are set, loading is a breeze:
 ```javascript
 require('env-smart').load();
 
-// Because a type was defined for the 'VERBOSE' key, it's guarenteed to be a boolean value
-// -- therefore, we can use a quick ternary operator for a one-liner log function:
-const log = process.env.VERBOSE ? (...messages) => console.log('DEBUG:', ...messages) : () => {};
-
-log('This will only be visible if the `VERBOSE` env is set to true.');
+console.log(`${process.env.PORT}: ${typeof process.env.PORT}`);
+// 80: number
 ```
 
-If neither value is otherwise defined, the env variable would parse to:
+If neither value is otherwise defined, `process.env` would parse to:
 ```json
 {
   "PORT": 80,
@@ -73,6 +81,7 @@ VERBOSE=TRUE
 ```
 Be careful to never commit your `.env` file!
 
+
 ### Options
 
 The `load()` function supports a few optional parameters:
@@ -91,13 +100,14 @@ console.log(`${process.env.port}: ${typeof process.env.port}`);
 
 ```
 
-Include `replace: false` option to return the parsed env values instead of replacing `process.env`:
+Include `replace: false` option to return the parsed values without replacing the contents of `process.env`:
 
 ```javascript
 const settings = require('env-smart').load({ replace: false });
 
 console.log(settings.PORT);
 ```
+
 
 ## License
 
