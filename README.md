@@ -22,7 +22,7 @@ $ npm install --save env-smart
 ```javascript
 require('env-smart').load();
 
-// process.env is now populated with the contents the .env file
+// process.env is now populated with the contents of the .env file
 
 console.log(process.env.PORT);
 ```
