@@ -1,11 +1,11 @@
 # env-smart
-> Library for Node applications that enables typed values and defaults in `env` values
+> Zero-dependency library for using .env files with types and defaults
 
-`env-smart` is a lightweight, zero-dependency library designed to solve two common issues with using environmental variables and `.env` files:
+`env-smart` is a lightweight, zero-dependency library for loading environmental variables from `.env` files. It is designed to solve two common issues with using `.env` configuration:
 - Variable types
 - Default values
 
-In both sitautions, logic specific to the environmental variables (type casting, default checking) ends up seeping into the application logic. If any of these values are re-used in different parts of the app this can even lead to duplication.it can even lead to some very un-DRY repetition.
+In both sitautions, logic specific to the environmental variables (type casting, default checking) ends up seeping into the application logic. If any of these values are re-used in different parts of the app this can even lead to duplication.
 
 Instead, `env-smart` enables defining default values and types for all environmental variables in their own configuration files. It supports `.env` files if one is defined, but defaults and type checking are applied to the process' env if not.
 
@@ -13,7 +13,7 @@ Instead, `env-smart` enables defining default values and types for all environme
 ## Install
 
 ```bash
-$ npm install --save env-smart
+$ npm install env-smart
 ```
 
 
@@ -27,6 +27,7 @@ require('env-smart').load();
 console.log(process.env.PORT);
 ```
 
+All configuration files are optional. If none are included, `env-smart` will use the process env. If a `.env` file is included, it will load that. Types and defaults are applied if declared.
 
 Types are defined in the `.env.types` file:
 ```ini
@@ -58,7 +59,7 @@ If neither value is otherwise defined, `process.env` would parse to:
 ```json
 {
   "PORT": 80,
- "VERBOSE": false
+  "VERBOSE": false
 }
 ```
 
