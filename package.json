@@ -12,12 +12,14 @@
     "url": "git+https://github.com/jessety/env-smart.git"
   },
   "keywords": [
+    ".env",
     "env",
     "environment",
     "environmental",
-    "settings",
+    "variables",
     "config",
-    "configuration"
+    "configuration",
+    "settings"
   ],
   "author": "Jesse T Youngblood <jessetyoungblood@gmail.com> (http://jesseyoungblood.com)",
   "license": "MIT",
@@ -28,6 +30,6 @@
   "dependencies": {},
   "devDependencies": {
     "@jessety/eslint-config": "^1.0.3",
-    "eslint": "^5.12.1"
+    "eslint": "^5.13.0"
   }
 }
