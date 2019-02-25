@@ -16,6 +16,10 @@ function load(options) {
 
   // Set up default parameters
 
+  if (typeof options.verbose !== 'boolean') {
+    options.verbose = false;
+  }
+
   if (typeof options.directory !== 'string') {
     options.directory = process.cwd();
   }
@@ -30,6 +34,10 @@ function load(options) {
 
   if (typeof options.replace !== 'boolean') {
     options.replace = true;
+  }
+
+  if (typeof options.process !== 'boolean') {
+    options.process = true;
   }
 
   // const log = options.verbose ? (...messages) => console.log('env-smart:', ...messages) : () => {};
@@ -49,6 +57,7 @@ function load(options) {
 
   // First, entries for all default values defined in .env.defaults
   for (const [key, value] of Object.entries(defaults)) {
+
     env[key] = value;
 
     // If types aren't declared for these values, use the types parsed from the defaults file
@@ -57,25 +66,28 @@ function load(options) {
     }
   }
 
-  // Add all values from either a .env file or the process env
+  // Add all values from the .env file
   for (const [key, value] of Object.entries(file)) {
     env[key] = value;
   }
 
   // Lastly, all values from the process env - allows overwriting the .env file with process env
-  for (const [key, value] of Object.entries(process.env)) {
+  if (options.process === true) {
 
-    if (options.lowercase === true) {
+    for (const [key, value] of Object.entries(process.env)) {
 
-      env[key.toLowerCase()] = value;
+      if (options.lowercase === true) {
 
-    } else if (options.lowercase === true) {
+        env[key.toLowerCase()] = value;
 
-      env[key.toUpperCase()] = value;
+      } else if (options.lowercase === true) {
 
-    } else {
+        env[key.toUpperCase()] = value;
 
-      env[key] = value;
+      } else {
+
+        env[key] = value;
+      }
     }
   }
 

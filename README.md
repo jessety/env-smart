@@ -94,6 +94,7 @@ require('env-smart').load({
   lowercase: true, // make all keys lower case.
   // uppercase: true, // make all keys upper case
   verbose: true, // output debug information to the console
+  process: false // if set to false, don't parse the process env, only dotfiles
 });
 
 // The 'PORT' value has been re-named 'port' by including the `lowercase` option

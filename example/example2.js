@@ -5,7 +5,8 @@ const settings = require('../index').load({
   lowercase: true, // make all keys lower case.
   // uppercase: true, // make all keys upper case
   verbose: true, // output debug information - useful for searching for broken configs
-  replace: false // don't replace the contents of process.env, instead just use the dictionary .load() returns
+  replace: false, // don't replace the contents of process.env, instead just use the dictionary .load() returns
+  process: false // don't parse the process env, only dotfiles
 });
 
 console.log(`Loaded ${Object.keys(settings).length} values:`);
