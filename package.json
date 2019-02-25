@@ -1,6 +1,6 @@
 {
   "name": "env-smart",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "Zero-dependency library for loading .env files. Supports default values and type definitions.",
   "main": "index.js",
   "scripts": {
