@@ -99,15 +99,14 @@ require('env-smart').load({
 
 // The 'PORT' value has been re-named 'port' by including the `lowercase` option
 console.log(`${process.env.port}: ${typeof process.env.port}`);
-
 ```
 
 Include `replace: false` option to return the parsed values without replacing the contents of `process.env`:
 
 ```javascript
-const settings = require('env-smart').load({ replace: false });
+const settings = require('env-smart').load({ replace: false, lowercase: true });
 
-console.log(settings.PORT);
+console.log(settings.port);
 ```
 
 
