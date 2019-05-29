@@ -29,7 +29,7 @@
   "homepage": "https://github.com/jessety/env-smart#readme",
   "dependencies": {},
   "devDependencies": {
-    "@jessety/eslint-config": "^1.0.3",
-    "eslint": "^5.13.0"
+    "@jessety/eslint-config": "^1.0.4",
+    "eslint": "^5.16.0"
   }
 }
