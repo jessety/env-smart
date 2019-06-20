@@ -43,8 +43,8 @@ VERBOSE=FALSE
 
 Alternatively, you can declare both default values and types in the `.env.defaults` file:
 ```ini
-PORT=80=number
-VERBOSE=FALSE=boolean
+PORT=number=80
+VERBOSE=boolean=false
 ```
 
 Once defaults and types are set, loading is a breeze:
@@ -94,7 +94,8 @@ require('env-smart').load({
   lowercase: true, // make all keys lower case.
   // uppercase: true, // make all keys upper case
   verbose: true, // output debug information to the console
-  process: false // if set to false, don't parse the process env, only dotfiles
+  process: false, // if set to false, don't parse the process env, only dotfiles
+  inlineTypes: false // don't allow inline type declarations in .env or .env.defaults, e.g. PORT=number=8080
 });
 
 // The 'PORT' value has been re-named 'port' by including the `lowercase` option
