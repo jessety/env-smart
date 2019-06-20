@@ -8,7 +8,7 @@ require('../index').load({ directory: __dirname });
 console.log(`Hello, world! Loaded ${Object.keys(process.env).length} env values.`);
 
 for (const [key, value] of Object.entries(process.env)) {
-  console.log(` ${key}: ${typeof value} = ${value}`);
+  console.log(` ${key}: ${typeof value} =`, value);
 }
 
 // Values are pulled from a local .env file (if there is one) or the process env
