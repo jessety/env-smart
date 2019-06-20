@@ -40,6 +40,10 @@ function load(options) {
     options.process = true;
   }
 
+  if (typeof options.inlineTypes !== 'boolean') {
+    options.inlineTypes = true;
+  }
+
   // const log = options.verbose ? (...messages) => console.log('env-smart:', ...messages) : () => {};
 
   // log(`Loading "${options.directory}/.env"...`);
@@ -50,8 +54,8 @@ function load(options) {
   // Parse default values for our env variables
   const defaults = parseFile(`${options.directory}/.env.defaults`, options) || {};
 
-  // Parse variable types for our env variables.
-  const types = parseFile(`${options.directory}/.env.types`, options) || {};
+  // Parse variable types for our env variables
+  const types = parseFile(`${options.directory}/.env.types`, { ...options, inlineTypes: false }) || {};
 
   const env = {};
 
@@ -74,24 +78,22 @@ function load(options) {
   // Lastly, all values from the process env - allows overwriting the .env file with process env
   if (options.process === true) {
 
-    for (const [key, value] of Object.entries(process.env)) {
+    for (let [key, value] of Object.entries(process.env)) {
 
       if (options.lowercase === true) {
 
-        env[key.toLowerCase()] = value;
+        key = key.toLowerCase();
 
-      } else if (options.lowercase === true) {
+      } else if (options.uppercase === true) {
 
-        env[key.toUpperCase()] = value;
-
-      } else {
-
-        env[key] = value;
+        key = key.toUpperCase();
       }
+
+      env[key] = value;
     }
   }
 
-  // Cast values into the types specified in the .env.types file, if defined.
+  // Cast values into the types specified in the .env.types file, or inline in .env.defaults
   for (const [key, intendedType] of Object.entries(types)) {
 
     if (!env.hasOwnProperty(key)) {

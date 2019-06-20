@@ -16,7 +16,7 @@ function type(value, type, options) {
   }
 
   if (type === 'string') {
-    return value;
+    return String(value);
   }
 
   if (type === 'boolean') {
@@ -37,7 +37,7 @@ function type(value, type, options) {
     } catch (e) {
 
       if (options.verbose === true) {
-        console.log(`env-smart`, `Could not parse JSON value: ${e.message}. Raw value:\n ${value}`);
+        console.warn(`env-smart`, `Could not parse JSON value: ${e.message}. Raw value:\n ${value}`);
       }
 
       if (type === 'object') {
