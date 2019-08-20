@@ -45,15 +45,15 @@ function load(options) {
   }
 
   if (typeof options.envFilename !== 'string') {
-    options.envFilename = ".env";
+    options.envFilename = '.env';
   }
 
   if (typeof options.envDefaultsFilename !== 'string') {
-    options.envDefaultsFilename = ".env.defaults";
+    options.envDefaultsFilename = '.env.defaults';
   }
 
   if (typeof options.envTypesFilename !== 'string') {
-    options.envTypesFilename = ".env.types";
+    options.envTypesFilename = '.env.types';
   }
 
   // const log = options.verbose ? (...messages) => console.log('env-smart:', ...messages) : () => {};
