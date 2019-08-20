@@ -44,18 +44,30 @@ function load(options) {
     options.inlineTypes = true;
   }
 
+  if (typeof options.envFilename !== 'string') {
+    options.envFilename = ".env";
+  }
+
+  if (typeof options.envDefaultsFilename !== 'string') {
+    options.envDefaultsFilename = ".env.defaults";
+  }
+
+  if (typeof options.envTypesFilename !== 'string') {
+    options.envTypesFilename = ".env.types";
+  }
+
   // const log = options.verbose ? (...messages) => console.log('env-smart:', ...messages) : () => {};
 
   // log(`Loading "${options.directory}/.env"...`);
 
   // Parse the contents of the env file, if one exists
-  const file = parseFile(`${options.directory}/.env`, options) || {};
+  const file = parseFile(`${options.directory}/${options.envFilename}`, options) || {};
 
   // Parse default values for our env variables
-  const defaults = parseFile(`${options.directory}/.env.defaults`, options) || {};
+  const defaults = parseFile(`${options.directory}/${options.envDefaultsFilename}`, options) || {};
 
   // Parse variable types for our env variables
-  const types = parseFile(`${options.directory}/.env.types`, { ...options, inlineTypes: false }) || {};
+  const types = parseFile(`${options.directory}/${options.envTypesFilename}`, { ...options, inlineTypes: false }) || {};
 
   const env = {};
 
