@@ -4,8 +4,8 @@
   "description": "Zero-dependency library for loading .env files. Supports default values and type definitions.",
   "main": "index.js",
   "scripts": {
-    "lint": "node ./node_modules/eslint/bin/eslint.js .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint .",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
     "configuration",
     "settings"
   ],
-  "author": "Jesse T Youngblood <jessetyoungblood@gmail.com> (http://jesseyoungblood.com)",
+  "author": "Jesse Youngblood <jessetyoungblood@gmail.com> (https://jesseyoungblood.com)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/jessety/env-smart/issues"
@@ -30,6 +30,7 @@
   "dependencies": {},
   "devDependencies": {
     "@jessety/eslint-config": "^1.0.4",
-    "eslint": "^5.16.0"
+    "eslint": "^5.16.0",
+    "jest": "^24.9.0"
   }
 }
