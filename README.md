@@ -1,53 +1,76 @@
 # env-smart
+
 > Zero-dependency library for using .env files with types and defaults
 
-`env-smart` is a lightweight, zero-dependency library for loading environmental variables from `.env` files. It is designed to solve two common issues with using `.env` configuration:
+`env-smart` is a lightweight, zero-dependency library for loading configuration from environmental variables and `.env` files. It is designed to solve two issues common with using environmental variables for app configuration:
+
 - Variable types
 - Default values
 
-In both sitautions, logic specific to the environmental variables (type casting, default checking) ends up seeping into the application logic. If any of these values are re-used in different parts of the app this can even lead to duplication.
+In both sitautions, logic specific to the configuration (type casting, default checking) ends up seeping into the application logic. If any of these values are re-used in different parts of the app this can even lead to duplication.
 
-Instead, `env-smart` enables defining default values and types for all environmental variables in their own configuration files. It supports `.env` files if one is defined, but defaults and type checking are applied to the process' env if not.
+Instead, `env-smart` enables declaring default values and types for all environmental variables in additional configuration files. It loads the contents of the `.env` file if present, but defaults and type checking are applied to the process' env if not.
 
-
-## Install
+## Installation
 
 ```bash
-$ npm install env-smart
+npm install env-smart
 ```
-
 
 ## Usage
 
-```javascript
-require('env-smart').load();
+Calling `.load()` populates `process.env` with the contents of a `.env` file in the root directory of your project, as well as the process' environmental variables.
 
-// process.env is now populated with the contents of the .env file
+```javascript
+// Modules
+import env from 'env-smart';
+env.load();
+
+// CommonJS
+require('env-smart').load();
 
 console.log(process.env.PORT);
 ```
 
-All configuration files are optional. If none are included, `env-smart` will use the process env. If a `.env` file is included, it will load that. Types and defaults are applied if declared.
+Using a `.env` files to store environmental variables makes managing different configurations between deployments much easier. Example file:
 
-Types are defined in the `.env.types` file:
 ```ini
-PORT=number
-VERBOSE=boolean
+PORT=8080
+VERBOSE=TRUE
+API_KEY=xyz
 ```
 
-Default values are defined in the `.env.defaults` file:
+### Types and Defaults
+
+In addition to the main `.env` file, `env-smart` also checks for two additional optional configuration files: `.env.defaults` and `.env.types`.
+
+Default values are set in the `.env.defaults` file:
+
 ```ini
 PORT=80
 VERBOSE=FALSE
 ```
 
-Alternatively, you can declare both default values and types in the `.env.defaults` file:
+If an environmental variable is otherwise empty empty, it's value from `.env.defaults` will be used.
+
+Types are set in the `.env.types` file:
+
+```ini
+PORT=number
+VERBOSE=boolean
+```
+
+Supported types are: `string`, `number`, `boolean`, `object` and `array`.
+
+Alternatively, variable types may be declared inline in the `.env.defaults` file:
+
 ```ini
 PORT=number=80
-VERBOSE=boolean=false
+VERBOSE=boolean=FALSE
 ```
 
 Once defaults and types are set, loading is a breeze:
+
 ```javascript
 require('env-smart').load();
 
@@ -55,18 +78,10 @@ console.log(`${process.env.PORT}: ${typeof process.env.PORT}`);
 // 80: number
 ```
 
-If neither value is otherwise defined, `process.env` would parse to:
-```json
-{
-  "PORT": 80,
-  "VERBOSE": false
-}
-```
+Process environmental variables take precedence over the contents of a `.env` file, and type checking is still applied.
 
-Process env values take precedence over the contents of a `.env` file, and type checking is still applied.
-
-```bash 
-$ export PORT=8080 && node index.js
+```bash
+export PORT=8080 && node index.js
 ```
 
 ```javascript
@@ -75,13 +90,7 @@ console.log(`${process.env.PORT}: ${typeof process.env.PORT}`);
 // 8080: number
 ```
 
-Using a `.env` file makes managing different configurations between deployments much easier:
-```ini
-PORT=8080
-VERBOSE=TRUE
-```
-Be careful to never commit your `.env` file!
-
+Both `.env.defaults` and `.env.types` should not contain any secrets, and should be committed to version control systems. Be careful to never commit the `.env` file.
 
 ### Options
 
@@ -113,7 +122,6 @@ const settings = require('env-smart').load({ replace: false, lowercase: true });
 
 console.log(settings.port);
 ```
-
 
 ## License
 
