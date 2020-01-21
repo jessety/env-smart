@@ -1,7 +1,7 @@
 'use strict';
 
-// require('smart-env').load();
-require('../../index').load({ directory: __dirname });
+// require('env-smart').load();
+require('../../').load({ directory: __dirname });
 
 console.log(`Loaded ${Object.keys(process.env).length} env values.`);
 

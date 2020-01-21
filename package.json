@@ -2,7 +2,7 @@
   "name": "env-smart",
   "version": "2.1.1",
   "description": "Zero-dependency library for loading .env files. Supports default values and type definitions.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "lint": "eslint .",
     "test": "jest"

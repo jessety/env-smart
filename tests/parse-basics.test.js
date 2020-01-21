@@ -1,6 +1,6 @@
 'use strict';
 
-const { parse } = require('../index');
+const { parse } = require('../');
 
 const tests = [
   {

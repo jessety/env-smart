@@ -1,7 +1,7 @@
 'use strict';
 
-// const settings = require('smart-env').load({
-const settings = require('../../index').load({
+// const settings = require('env-smart').load({
+const settings = require('../../').load({
   directory: __dirname, // manually specify the directory to load .env files from
   encoding: 'utf8', // manually specify the encoding of the .env files
   lowercase: true, // make all keys lower case

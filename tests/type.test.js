@@ -1,6 +1,6 @@
 'use strict';
 
-const { type } = require('../index');
+const { type } = require('../');
 
 const tests = [
   {

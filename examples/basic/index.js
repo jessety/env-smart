@@ -1,9 +1,9 @@
 'use strict';
 
-require('../../index').load({ directory: __dirname });
+require('../../').load({ directory: __dirname });
 // Manually set the directory path for the sake of this example
 // In most cases, all you need is:
-// require('smart-env').load();
+// require('env-smart').load();
 
 console.log(`Hello, world! Loaded ${Object.keys(process.env).length} env values.`);
 
