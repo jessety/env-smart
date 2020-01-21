@@ -108,7 +108,7 @@ function load(options) {
   // Cast values into the types specified in the .env.types file, or inline in .env.defaults
   for (const [key, intendedType] of Object.entries(types)) {
 
-    if (!env.hasOwnProperty(key)) {
+    if (env[key] === undefined) {
       continue;
     }
 
