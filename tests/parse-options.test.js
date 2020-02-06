@@ -31,15 +31,23 @@ const tests = [
     input: `test=true`,
     options: { uppercase: true },
     output: { TEST: 'true' }
+  },
+  {
+    name: `functions with no options set`,
+    input: `key=value`,
+    output: { key: 'value' }
   }
 ];
 
-for (const { name, input, output, options } of tests) {
+describe('parse function', () => {
 
-  test(name, () => {
+  for (const { name, input, output, options } of tests) {
 
-    const parsed = parse(input, options || {});
+    test(name, () => {
 
-    expect(parsed).toEqual(output);
-  });
-}
+      const parsed = parse(input, options);
+
+      expect(parsed).toEqual(output);
+    });
+  }
+});

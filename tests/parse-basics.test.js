@@ -59,12 +59,15 @@ SAMPLE_VALUE=1234
   }
 ];
 
-for (const { name, input, output, options } of tests) {
+describe('parse function', () => {
 
-  test(name, () => {
+  for (const { name, input, output, options } of tests) {
 
-    const parsed = parse(input, options || {});
+    test(name, () => {
 
-    expect(parsed).toEqual(output);
-  });
-}
+      const parsed = parse(input, options || {});
+
+      expect(parsed).toEqual(output);
+    });
+  }
+});

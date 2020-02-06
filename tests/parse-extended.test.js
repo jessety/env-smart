@@ -71,15 +71,28 @@ const tests = [
     output: {
       URL: 'https://github.com/jessety/env-smart/commits/master?after=5ede1c0faed20fbd3346ea75724d6d096361ae72+34'
     }
+  },
+  {
+    name: `ignores lines without a = sign`,
+    input: `KEY_WITHOUT_EQUALS`,
+    output: { }
+  },
+  {
+    name: `ignores lines with blank keys`,
+    input: `=VALUE_WITHOUT_KEY`,
+    output: { }
   }
 ];
 
-for (const { name, input, output, options } of tests) {
+describe('parse function', () => {
 
-  test(name, () => {
+  for (const { name, input, output, options } of tests) {
 
-    const parsed = parse(input, options || {});
+    test(name, () => {
 
-    expect(parsed).toEqual(output);
-  });
-}
+      const parsed = parse(input, options || {});
+
+      expect(parsed).toEqual(output);
+    });
+  }
+});

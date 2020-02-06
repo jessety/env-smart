@@ -10,6 +10,12 @@ const tests = [
     output: `a string`
   },
   {
+    name: `types a number into a string`,
+    input: 324,
+    into: `string`,
+    output: `324`
+  },
+  {
     name: `types a string into a boolean`,
     input: `true`,
     into: `boolean`,
@@ -34,25 +40,74 @@ const tests = [
     output: 42
   },
   {
+    name: `types a string into an object`,
+    input: `{"test":true}`,
+    into: `object`,
+    output: { test: true }
+  },
+  {
     name: `types a string into an array`,
     input: `[1,2,3]`,
     into: `array`,
     output: [1, 2, 3]
   },
   {
-    name: `types a string into an object`,
-    input: `{"test":true}`,
+    name: `types an invalid JSON string into an object`,
+    input: `{test":true}`,
     into: `object`,
-    output: { test: true }
+    output: {}
+  },
+  {
+    name: `types an invalid JSON string into an array`,
+    input: `[1,2,"three]`,
+    into: `array`,
+    output: []
   }
 ];
 
-for (const { name, input, into, output, options } of tests) {
+describe('type function', () => {
 
-  test(name, () => {
+  for (const { name, input, into, output, options } of tests) {
 
-    const result = type(input, into, options || {});
+    test(name, () => {
 
-    expect(result).toEqual(output);
+      const result = type(input, into, options || {});
+
+      expect(result).toEqual(output);
+    });
+  }
+
+  // Handle errors
+
+  test('returns input unchanged when presented with an unknown type', () => {
+
+    const value = 'this is actually just a string';
+    const intendedType = 'mystery';
+
+    const result = type(value, intendedType);
+
+    expect(result).toBe(value);
   });
-}
+
+  test('prints an error when parsing invalid JSON string in verbose mode', () => {
+
+    const spy = jest.spyOn(console, 'warn').mockImplementation();
+
+    type('{test":true}', 'object', { verbose: true });
+
+    expect(spy).toHaveBeenCalledTimes(1);
+
+    spy.mockRestore();
+  });
+
+  test('doesn\'t print an error when parsing invalid JSON string when not in verbose mode', () => {
+
+    const spy = jest.spyOn(console, 'warn').mockImplementation();
+
+    type('{test":true}', 'object', { verbose: false });
+
+    expect(spy).toHaveBeenCalledTimes(0);
+
+    spy.mockRestore();
+  });
+});
