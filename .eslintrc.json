@@ -2,14 +2,6 @@
   "extends": "@jessety",
   "overrides": [
     {
-      "files": ["**/*.mjs"],
-      "parserOptions": { "sourceType": "module" }
-    },
-    {
-      "files": ["**/*.cjs"],
-      "parserOptions": { "sourceType": "script" }
-    },
-    {
       "files": ["**/*.test.js"],
       "env": { "jest": true }
     }
