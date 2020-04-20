@@ -94,8 +94,9 @@ describe('type function', () => {
     const spy = jest.spyOn(console, 'warn').mockImplementation();
 
     type('{test":true}', 'object', { verbose: true });
+    type('[1,2,]', 'array', { verbose: true });
 
-    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledTimes(2);
 
     spy.mockRestore();
   });
@@ -105,6 +106,7 @@ describe('type function', () => {
     const spy = jest.spyOn(console, 'warn').mockImplementation();
 
     type('{test":true}', 'object', { verbose: false });
+    type('[1,2,]', 'array', { verbose: false });
 
     expect(spy).toHaveBeenCalledTimes(0);
 
