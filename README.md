@@ -1,6 +1,10 @@
 # env-smart
 
-> Zero-dependency library for using .env files with types and defaults
+Zero-dependency library for using .env files with types and default values
+
+[![ci](https://github.com/jessety/env-smart/workflows/ci/badge.svg)](https://github.com/jessety/env-smart/actions)
+[![license](https://img.shields.io/github/license/jessety/env-smart.svg)](https://github.com/jessety/env-smart/blob/master/LICENSE)
+[![npm](https://img.shields.io/npm/v/env-smart.svg)](https://www.npmjs.com/package/env-smart)
 
 `env-smart` is a lightweight, zero-dependency library for loading configuration from environmental variables and `.env` files. It is designed to solve two issues common with using environmental variables for app configuration:
 
