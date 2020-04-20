@@ -2,3 +2,5 @@ examples
 tests
 coverage
 .eslintrc.json
+.eslintignore
+.github
