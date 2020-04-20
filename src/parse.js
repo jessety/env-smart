@@ -8,16 +8,12 @@ const type = require('./type');
  * @param   {string} path - The path of the env file to parse
  * @returns {object} - A key-value dictionary representation of the env file contents
  */
-function parseFile(path, options) {
-
-  if (typeof options !== 'object') {
-    options = {};
-  }
+function parseFile(path = '', options = {}) {
 
   if (!fs.existsSync(path)) {
 
     if (options.verbose === true) {
-      console.log('env-smart:', `.env file does not exist at path "${path}"`);
+      console.warn('env-smart:', `.env file does not exist at path "${path}"`);
     }
     return;
   }
@@ -30,7 +26,7 @@ function parseFile(path, options) {
 
   if (!contents) {
     if (options.verbose === true) {
-      console.log('env-smart:', `Could not load contents of file at path "${path}"`);
+      console.warn('env-smart:', `Could not load contents of file at path "${path}"`);
     }
     return;
   }
