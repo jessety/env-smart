@@ -3,7 +3,10 @@
   "overrides": [
     {
       "files": ["**/*.test.js"],
-      "env": { "jest": true }
+      "env": { "jest": true },
+      "rules": {
+        "no-console": "warn"
+      }
     }
   ]
 }

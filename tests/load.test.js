@@ -11,8 +11,6 @@ describe('load function', () => {
 
   const directory = path.resolve(os.tmpdir(), '.env_smart_test_load');
 
-  console.log(directory);
-
   const createFile = (filename, contents) => {
     const data = Buffer.from(contents);
     const filePath = path.join(directory, filename);
