@@ -3,4 +3,6 @@ tests
 coverage
 .eslintrc.json
 .eslintignore
+.editorconfig
+.gitattributes
 .github
