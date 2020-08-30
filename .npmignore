@@ -6,3 +6,5 @@ coverage
 .editorconfig
 .gitattributes
 .github
+RELEASE.md.hbs
+RELEASE.md
