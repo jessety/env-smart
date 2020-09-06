@@ -1,17 +1,15 @@
-'use strict';
+import os from 'os';
+import path from 'path';
+import fs from 'fs';
+import { promisify } from 'util';
 
-const os = require('os');
-const path = require('path');
-const fs = require('fs');
-const { promisify } = require('util');
-
-const { load } = require('../');
+import { load } from '../';
 
 describe('load function', () => {
 
   const directory = path.resolve(os.tmpdir(), '.env_smart_test_load');
 
-  const createFile = (filename, contents) => {
+  const createFile = (filename: string, contents: string) => {
     const data = Buffer.from(contents);
     const filePath = path.join(directory, filename);
     return promisify(fs.writeFile)(filePath, data);

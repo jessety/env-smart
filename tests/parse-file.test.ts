@@ -1,18 +1,15 @@
-'use strict';
+import os from 'os';
+import path from 'path';
+import fs from 'fs';
+import { promisify } from 'util';
 
-const os = require('os');
-const path = require('path');
-const fs = require('fs');
-const { promisify } = require('util');
-
-const { parseFile } = require('../');
-
+import { parseFile } from '../';
 
 describe('parseFile function', () => {
 
   const directory = path.resolve(os.tmpdir(), '.env_smart_test_parseFile');
 
-  const createFile = (fileName, contents) => {
+  const createFile = (fileName: string, contents: string) => {
     const data = Buffer.from(contents);
     const filePath = path.join(directory, fileName);
     return promisify(fs.writeFile)(filePath, data);
@@ -35,8 +32,9 @@ describe('parseFile function', () => {
     integer=number=42
     string=abc123`);
 
-    const result = parseFile(path.join(directory, filename));
+    const result = parseFile(path.join(directory, filename)) as {[key: string]: unknown};
 
+    expect(result).not.toBeUndefined();
     expect(result.TEST).toBe('TRUE');
     expect(result.BOOLEAN).toBe(true);
     expect(result.integer).toBe(42);

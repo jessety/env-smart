@@ -1,13 +1,11 @@
-'use strict';
-
 /**
  * Cast a value into the specified type
  * @param   {string}                             value     A string representation of a variable
  * @param   {string}                             type      The type the value should be. Either string, boolean, number, object or array.
  * @param   {object}                             [options] Additional options. Optional.
- * @returns {string|boolean|number|object|Array} The value casted into it's preferred type.
+ * @returns {string|boolean|number|object|Array} The value casted into the specified type.
  */
-function type(value, type, options) {
+export default function type(value: string, type: string, options?: { verbose?: boolean; }): unknown {
 
   type = type.toLowerCase();
 
@@ -36,7 +34,7 @@ function type(value, type, options) {
 
     } catch (e) {
 
-      if (options.verbose === true) {
+      if (options && options.verbose === true) {
         console.warn(`env-smart`, `Could not parse JSON value: ${e.message}. Raw value:\n ${value}`);
       }
 
@@ -53,5 +51,3 @@ function type(value, type, options) {
 
   return value;
 }
-
-module.exports = type;

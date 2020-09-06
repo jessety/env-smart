@@ -1,6 +1,4 @@
-'use strict';
-
-const { parse } = require('../');
+import { parse } from '../';
 
 const tests = [
   {
