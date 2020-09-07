@@ -1,6 +1,4 @@
-'use strict';
-
-const { parse } = require('../');
+import { parse } from '../';
 
 const tests = [
   {
@@ -18,7 +16,7 @@ VERBOSE=FALSE`,
   {
     name: `ignores comment lines`,
     input: `
-PORT=80  
+PORT=80
 # Don't change this
 SSL_PORT=443`,
     output: { PORT: '80', SSL_PORT: '443' }
@@ -42,7 +40,7 @@ ALLOWED_NUMBERS=array=[ 42, 7, 19, 29 ]`,
     name: `ignores blank lines`,
     input: `
 
-SAMPLE_VALUE=1234  
+SAMPLE_VALUE=1234
 
     `,
     output: { SAMPLE_VALUE: '1234' }
@@ -61,11 +59,11 @@ SAMPLE_VALUE=1234
 
 describe('parse function', () => {
 
-  for (const { name, input, output, options } of tests) {
+  for (const { name, input, output } of tests) {
 
     test(name, () => {
 
-      const parsed = parse(input, options || {});
+      const parsed = parse(input);
 
       expect(parsed).toEqual(output);
     });

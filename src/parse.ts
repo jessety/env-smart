@@ -1,14 +1,16 @@
-'use strict';
-
-const fs = require('fs');
-const type = require('./type');
+import fs, { BaseEncodingOptions } from 'fs';
+import type from './type';
 
 /**
  * Parse the contents of an env file
  * @param   {string} path - The path of the env file to parse
  * @returns {object} - A key-value dictionary representation of the env file contents
  */
-function parseFile(path = '', options = {}) {
+function parseFile(path = '', options?: { verbose?: boolean, encoding?: BaseEncodingOptions['encoding'], inlineTypes?: boolean }): {[key: string]: unknown} | undefined {
+
+  if (typeof options !== 'object') {
+    options = {};
+  }
 
   if (!fs.existsSync(path)) {
 
@@ -39,13 +41,13 @@ function parseFile(path = '', options = {}) {
  * @param   {string} data - env data
  * @returns {object} - A key-value dictionary representation of the env file contents
  */
-function parse(data, options) {
+function parse(data: string, options?: { verbose?: boolean; inlineTypes?: boolean, lowercase?: boolean, uppercase?: boolean }): {[key: string]: unknown} {
 
   if (typeof options !== 'object') {
     options = {};
   }
 
-  const env = {};
+  const env: {[key: string]: unknown} = {};
 
   const lines = data.split('\n');
 
@@ -119,4 +121,4 @@ function parse(data, options) {
   return env;
 }
 
-module.exports = { parse, parseFile };
+export { parse, parseFile };

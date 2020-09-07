@@ -1,12 +1,23 @@
 {
-  "extends": "@jessety",
   "overrides": [
     {
-      "files": ["**/*.test.js"],
+      "files": ["**/*.ts"],
+      "extends": [
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "@jessety"
+      ],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint"]
+    },
+    {
+      "files": ["**/*.{js,cjs,mjs}"],
+      "extends": "@jessety"
+    },
+    {
+      "files": ["**/*.test.{ts,js,cjs}"],
       "env": { "jest": true },
-      "rules": {
-        "no-console": "warn"
-      }
+      "rules": { "no-console": "warn" }
     }
   ]
 }

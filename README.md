@@ -4,9 +4,9 @@ Zero-dependency library for using .env files with types and default values
 
 [![ci](https://github.com/jessety/env-smart/workflows/ci/badge.svg)](https://github.com/jessety/env-smart/actions)
 [![npm](https://img.shields.io/npm/v/env-smart.svg)](https://www.npmjs.com/package/env-smart)
-[![license](https://img.shields.io/github/license/jessety/env-smart.svg)](https://github.com/jessety/env-smart/blob/master/LICENSE)
+[![license](https://img.shields.io/github/license/jessety/env-smart.svg)](https://github.com/jessety/env-smart/blob/main/LICENSE)
 
-`env-smart` is a lightweight, zero-dependency library for loading configuration from environmental variables and `.env` files. It is designed to solve two issues common with using environmental variables for app configuration:
+`env-smart` is a lightweight, zero-dependency library for loading configuration from environmental variables and `.env` files in JavaScript or TypeScript. It is designed to solve two common issues with environmental variables:
 
 - Variable types
 - Default values
@@ -109,7 +109,7 @@ require('env-smart').load({
   verbose: true, // output debug information to the console
   process: false, // if set to false, don't parse the process env, only dotfiles
   inlineTypes: false, // don't allow inline type declarations in .env or .env.defaults, e.g. PORT=number=8080
-  
+
   envFilename : '.env', //  manually specify .env file name
   envDefaultsFilename : '.env.defaults', // manually specify .env.defaults file name
   envTypesFilename : '.env.types' // manually specify .env.types file name

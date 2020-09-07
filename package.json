@@ -10,7 +10,8 @@
     "variables",
     "config",
     "configuration",
-    "settings"
+    "settings",
+    "dotenv"
   ],
   "homepage": "https://github.com/jessety/env-smart#readme",
   "bugs": {
@@ -23,16 +24,28 @@
   "license": "MIT",
   "author": "Jesse Youngblood <jessetyoungblood@gmail.com> (https://jesseyoungblood.com)",
   "type": "commonjs",
-  "main": "src/index.js",
-  "scripts": {
-    "lint": "eslint .",
-    "test": "jest"
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "example": "examples",
+    "test": "tests"
   },
-  "dependencies": {},
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint .",
+    "test": "tsc && jest"
+  },
   "devDependencies": {
-    "@jessety/eslint-config": "^1.0.5",
+    "@jessety/eslint-config": "^1.0.6",
+    "@types/jest": "^26.0.13",
+    "@types/node": "^14.6.4",
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.1",
     "auto-changelog": "^2.2.0",
-    "eslint": "^6.8.0",
-    "jest": "^25.4.0"
+    "eslint": "^7.8.1",
+    "jest": "^26.4.0",
+    "ts-jest": "^26.2.0",
+    "typescript": "^4.0.2"
   }
 }

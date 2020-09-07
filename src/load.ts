@@ -1,14 +1,27 @@
-'use strict';
-
-const { parseFile } = require('./parse');
-const type = require('./type');
+import { BaseEncodingOptions } from 'fs';
+import { parseFile } from './parse';
+import type from './type';
 
 /**
  * Load env values
  * @param   {object} [parameters] - Loading options
  * @returns {object} - Object containing env values found in a .env file (or the process )
  */
-function load(options) {
+export default function load(options?: {
+  lowercase?: boolean,
+  uppercase?: boolean,
+  verbose?: boolean,
+  process?: boolean,
+  inlineTypes?: boolean,
+  directory?: string,
+  replace?: boolean,
+  encoding?: BaseEncodingOptions['encoding'],
+  envFilename?: string,
+  envDefaultsFilename?: string,
+  envTypesFilename?: string
+}): {
+  [key: string]: unknown;
+} {
 
   if (typeof options !== 'object') {
     options = {};
@@ -69,7 +82,7 @@ function load(options) {
   // Parse variable types for our env variables
   const types = parseFile(`${options.directory}/${options.envTypesFilename}`, { ...options, inlineTypes: false }) || {};
 
-  const env = {};
+  const env: {[key: string]: unknown} = {};
 
   // First, entries for all default values defined in .env.defaults
   for (const [key, value] of Object.entries(defaults)) {
@@ -112,14 +125,12 @@ function load(options) {
       continue;
     }
 
-    env[key] = type(env[key], intendedType, options);
+    env[key] = type(env[key] as string, intendedType as string, options);
   }
 
   if (options.replace === true) {
-    process.env = env;
+    process.env = env as { [key: string]: string | undefined };
   }
 
   return env;
 }
-
-module.exports = load;

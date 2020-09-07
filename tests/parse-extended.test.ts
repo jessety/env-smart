@@ -1,6 +1,4 @@
-'use strict';
-
-const { parse } = require('../');
+import { parse } from '../';
 
 const tests = [
 
@@ -46,30 +44,30 @@ const tests = [
   // =
   {
     name: `parses a = sign in the value, unquoted`,
-    input: `URL=https://github.com/jessety/env-smart/commits/master?after=5ede1c0faed20fbd3346ea75724d6d096361ae72+34`,
+    input: `URL=https://github.com/jessety/env-smart/commits/main?after=5ede1c0faed20fbd3346ea75724d6d096361ae72+34`,
     output: {
-      URL: 'https://github.com/jessety/env-smart/commits/master?after=5ede1c0faed20fbd3346ea75724d6d096361ae72+34'
+      URL: 'https://github.com/jessety/env-smart/commits/main?after=5ede1c0faed20fbd3346ea75724d6d096361ae72+34'
     }
   },
   {
     name: `parses a = sign in the value, quoted`,
-    input: `URL="https://github.com/jessety/env-smart/commits/master?after=5ede1c0faed20fbd3346ea75724d6d096361ae72+34"`,
+    input: `URL="https://github.com/jessety/env-smart/commits/main?after=5ede1c0faed20fbd3346ea75724d6d096361ae72+34"`,
     output: {
-      URL: 'https://github.com/jessety/env-smart/commits/master?after=5ede1c0faed20fbd3346ea75724d6d096361ae72+34'
+      URL: 'https://github.com/jessety/env-smart/commits/main?after=5ede1c0faed20fbd3346ea75724d6d096361ae72+34'
     }
   },
   {
     name: `parses a = sign in the value, unquoted with inline type declaration`,
-    input: `URL=string=https://github.com/jessety/env-smart/commits/master?after=5ede1c0faed20fbd3346ea75724d6d096361ae72+34`,
+    input: `URL=string=https://github.com/jessety/env-smart/commits/main?after=5ede1c0faed20fbd3346ea75724d6d096361ae72+34`,
     output: {
-      URL: 'https://github.com/jessety/env-smart/commits/master?after=5ede1c0faed20fbd3346ea75724d6d096361ae72+34'
+      URL: 'https://github.com/jessety/env-smart/commits/main?after=5ede1c0faed20fbd3346ea75724d6d096361ae72+34'
     }
   },
   {
     name: `parses a = sign in value, quoted with inline type declaration`,
-    input: `URL=string="https://github.com/jessety/env-smart/commits/master?after=5ede1c0faed20fbd3346ea75724d6d096361ae72+34"`,
+    input: `URL=string="https://github.com/jessety/env-smart/commits/main?after=5ede1c0faed20fbd3346ea75724d6d096361ae72+34"`,
     output: {
-      URL: 'https://github.com/jessety/env-smart/commits/master?after=5ede1c0faed20fbd3346ea75724d6d096361ae72+34'
+      URL: 'https://github.com/jessety/env-smart/commits/main?after=5ede1c0faed20fbd3346ea75724d6d096361ae72+34'
     }
   },
   {
@@ -86,11 +84,11 @@ const tests = [
 
 describe('parse function', () => {
 
-  for (const { name, input, output, options } of tests) {
+  for (const { name, input, output } of tests) {
 
     test(name, () => {
 
-      const parsed = parse(input, options || {});
+      const parsed = parse(input);
 
       expect(parsed).toEqual(output);
     });
