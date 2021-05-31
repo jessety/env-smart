@@ -31,10 +31,14 @@
     "example": "examples",
     "test": "tests"
   },
+  "files": [
+    "/lib"
+  ],
   "scripts": {
-    "build": "tsc",
+    "build": "npm run clean && tsc",
     "lint": "eslint .",
-    "test": "tsc && jest"
+    "test": "jest",
+    "clean": "rimraf lib"
   },
   "devDependencies": {
     "@jessety/eslint-config": "^1.0.6",
