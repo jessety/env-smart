@@ -3,7 +3,7 @@ import path from 'path';
 import fs from 'fs';
 import { promisify } from 'util';
 
-import { load } from '../';
+import { load } from '../src';
 
 describe('load function', () => {
 

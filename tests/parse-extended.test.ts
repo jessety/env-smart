@@ -1,4 +1,4 @@
-import { parse } from '../';
+import { parse } from '../src';
 
 const tests = [
 

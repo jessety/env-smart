@@ -1,4 +1,4 @@
-import { type } from '../';
+import { type } from '../src';
 
 const tests = [
   {

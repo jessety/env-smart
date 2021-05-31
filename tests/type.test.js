@@ -1,6 +1,6 @@
 'use strict';
 
-const { type } = require('../');
+const { type } = require('../src');
 
 describe('type function', () => {
 
