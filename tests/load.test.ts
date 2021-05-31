@@ -89,6 +89,40 @@ describe('load function', () => {
     expect(env.ADDITIONAL).toBe('yes');
   });
 
+  test('loads null for empty values when specified', async () => {
+
+    const envFileName = '.somenulls.env';
+    await createFile(envFileName, 'TEST0=abc123');
+
+    const typesFileName = '.somenulls.env.types';
+    await createFile(typesFileName, `
+    TEST1=string
+    TEST2=boolean
+    TEST3=number
+    TEST4=object
+    TEST4=array
+    `);
+
+    const env = load({
+      replace: false,
+      directory,
+      missingValues: 'null',
+      envFilename: envFileName,
+      envTypesFilename: typesFileName
+    });
+
+    expect(env.TEST0).toBe('abc123');
+    expect(env.TEST1).toBeNull();
+    expect(env.TEST2).toBeNull();
+    expect(env.TEST3).toBeNull();
+    expect(env.TEST4).toBeNull();
+    expect(env.TEST5).toBeNull();
+    expect(env.TEST6).toBeUndefined();
+
+    await promisify(fs.unlink)(path.join(directory, envFileName));
+    await promisify(fs.unlink)(path.join(directory, typesFileName));
+  });
+
   test('loads in process.cwd and replaces the process env by default', async () => {
 
     const filepath = path.join(process.cwd(), '.env');
