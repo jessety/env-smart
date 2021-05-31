@@ -1,0 +1,80 @@
+name: publish
+
+on:
+  workflow_run:
+    workflows: ["release"]
+    types:
+      - completed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - name: Install dependencies
+        run: npm install
+      - name: Build project
+        run: npm run build
+      - name: Archive build # https://github.com/actions/upload-artifact#maintaining-file-permissions-and-case-sensitive-files
+        run: tar -czvf lib.tar.gz ./lib
+      - name: Upload build
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: ./lib.tar.gz
+          retention-days: 1
+
+  # Comment out one of the following jobs to publish to only registry
+
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+          registry-url: "https://registry.npmjs.org"
+      - name: Download build
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+      - name: Unarchive build
+        run: tar -xzf ./lib.tar.gz
+      - name: Publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Create a repository secret named NPM_TOKEN containing an npm access token
+
+  publish-gpr:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+          registry-url: https://npm.pkg.github.com/
+          always-auth: true
+          scope: "@jessety"
+      - name: Download build
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+      - name: Unarchive build
+        run: tar -xzf ./lib.tar.gz
+      - name: Scope Package
+        run: echo $(cat package.json | jq '.name= "@jessety/\(.name)"') > package.json
+      - name: Publish
+        run: npm publish --registry=https://npm.pkg.github.com/@jessety
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by GitHub, and requires no setup
