@@ -3,6 +3,7 @@
 Zero-dependency library for using .env files with types and default values
 
 [![ci](https://github.com/jessety/env-smart/workflows/ci/badge.svg)](https://github.com/jessety/env-smart/actions)
+[![coverage](https://codecov.io/gh/jessety/env-smart/branch/main/graph/badge.svg?token=F0L99B4KW5)](https://codecov.io/gh/jessety/env-smart)
 [![npm](https://img.shields.io/npm/v/env-smart.svg)](https://www.npmjs.com/package/env-smart)
 [![license](https://img.shields.io/github/license/jessety/env-smart.svg)](https://github.com/jessety/env-smart/blob/main/LICENSE)
 
