@@ -66,6 +66,6 @@ describe('parseFile function', () => {
 
   afterAll(() => {
     // Delete the test folder and everything in it
-    return promisify(fs.rm ?? fs.rmdir)(directory, { recursive: true });
+    return promisify(fs.rmdir)(directory, { recursive: true });
   });
 });
