@@ -1,19 +1,24 @@
-import fs, { BaseEncodingOptions } from 'fs';
 import type from './type';
+import fs, { ObjectEncodingOptions } from 'fs';
 
 /**
  * Parse the contents of an env file
  * @param   {string} path - The path of the env file to parse
  * @returns {object} - A key-value dictionary representation of the env file contents
  */
-function parseFile(path = '', options?: { verbose?: boolean, encoding?: BaseEncodingOptions['encoding'], inlineTypes?: boolean }): {[key: string]: unknown} | undefined {
-
+function parseFile(
+  path = '',
+  options?: {
+    verbose?: boolean;
+    encoding?: ObjectEncodingOptions['encoding'];
+    inlineTypes?: boolean;
+  }
+): { [key: string]: unknown } | undefined {
   if (typeof options !== 'object') {
     options = {};
   }
 
   if (!fs.existsSync(path)) {
-
     if (options.verbose === true) {
       console.warn('env-smart:', `.env file does not exist at path "${path}"`);
     }
@@ -41,18 +46,19 @@ function parseFile(path = '', options?: { verbose?: boolean, encoding?: BaseEnco
  * @param   {string} data - env data
  * @returns {object} - A key-value dictionary representation of the env file contents
  */
-function parse(data: string, options?: { verbose?: boolean; inlineTypes?: boolean, lowercase?: boolean, uppercase?: boolean }): {[key: string]: unknown} {
-
+function parse(
+  data: string,
+  options?: { verbose?: boolean; inlineTypes?: boolean; lowercase?: boolean; uppercase?: boolean }
+): { [key: string]: unknown } {
   if (typeof options !== 'object') {
     options = {};
   }
 
-  const env: {[key: string]: unknown} = {};
+  const env: { [key: string]: unknown } = {};
 
   const lines = data.split('\n');
 
   for (let line of lines) {
-
     line = line.trim();
 
     // Ignore all blank/whitespace lines, or lines that start with #
@@ -74,23 +80,17 @@ function parse(data: string, options?: { verbose?: boolean; inlineTypes?: boolea
     // Check if an inline type was declared, like this:
     // PORT=number=2112
     if (options.inlineTypes !== false && components.length >= 3) {
-
       intendedType = components[1].trim().toLowerCase();
 
       if (['string', 'boolean', 'number', 'object', 'array'].includes(intendedType)) {
-
         // This is a valid type declaration.
         value = components.slice(2).join('=');
-
       } else {
-
         // This is not a valid type declaration. It probably isn't actually a type declaration at all.
         intendedType = undefined;
         value = components.slice(1).join('=');
       }
-
     } else {
-
       value = components.slice(1).join('=');
     }
 
@@ -100,11 +100,8 @@ function parse(data: string, options?: { verbose?: boolean; inlineTypes?: boolea
     }
 
     if (options.lowercase === true) {
-
       key = key.toLowerCase();
-
     } else if (options.uppercase === true) {
-
       key = key.toUpperCase();
     }
 

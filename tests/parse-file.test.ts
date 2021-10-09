@@ -1,12 +1,10 @@
+import { parseFile } from '../src';
+import fs from 'fs';
 import os from 'os';
 import path from 'path';
-import fs from 'fs';
 import { promisify } from 'util';
 
-import { parseFile } from '../src';
-
 describe('parseFile function', () => {
-
   const directory = path.resolve(os.tmpdir(), '.env_smart_test_parseFile');
 
   const createFile = (fileName: string, contents: string) => {
@@ -16,23 +14,23 @@ describe('parseFile function', () => {
   };
 
   beforeAll(() => {
-
     if (fs.existsSync(directory) === false) {
       return promisify(fs.mkdir)(directory, { recursive: true });
     }
   });
 
   test(`parses valid files`, async () => {
-
     const filename = 'valid.env';
 
-    await createFile(filename,
+    await createFile(
+      filename,
       `TEST=TRUE
     BOOLEAN=boolean=true
     integer=number=42
-    string=abc123`);
+    string=abc123`
+    );
 
-    const result = parseFile(path.join(directory, filename)) as {[key: string]: unknown};
+    const result = parseFile(path.join(directory, filename)) as { [key: string]: unknown };
 
     expect(result).not.toBeUndefined();
     expect(result.TEST).toBe('TRUE');
@@ -41,7 +39,6 @@ describe('parseFile function', () => {
   });
 
   test(`handles parsing non-existent files`, async () => {
-
     const spy = jest.spyOn(console, 'warn').mockImplementation();
 
     const result = parseFile(path.join(directory, 'doesnotexist.env'), { verbose: true });
@@ -53,7 +50,6 @@ describe('parseFile function', () => {
   });
 
   test(`handles parsing empty files`, async () => {
-
     const filename = 'empty.env';
 
     await createFile(filename, '');
@@ -69,7 +65,6 @@ describe('parseFile function', () => {
   });
 
   afterAll(() => {
-
     // Delete the test folder and everything in it
     return promisify(fs.rmdir)(directory, { recursive: true });
   });

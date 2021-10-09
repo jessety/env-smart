@@ -20,7 +20,9 @@ for (const [key, value] of Object.entries(process.env)) {
 // ..and therefore we can use a quick ternary operator to throw together a one-liner log function:
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-const log = process.env.VERBOSE ? (message: string) => console.log('DEBUG:', message) : () => { };
+const log = process.env.VERBOSE ? (message: string) => console.log('DEBUG:', message) : () => {};
 
-log('This will only be displayed if the `VERBOSE` env is set to true. If you\'re seeing this, it was!');
+log(
+  'This will only be displayed if the `VERBOSE` env is set to true. If you\'re seeing this, it was!'
+);
 log('Try "export VERBOSE=false && node index.js" to disable this message.');

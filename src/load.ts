@@ -1,6 +1,6 @@
-import { BaseEncodingOptions } from 'fs';
 import { parseFile } from './parse';
 import type from './type';
+import { ObjectEncodingOptions } from 'fs';
 
 /**
  * Load env values
@@ -8,21 +8,20 @@ import type from './type';
  * @returns {object} - Object containing env values found in a .env file (or the process )
  */
 export default function load(options?: {
-  lowercase?: boolean,
-  uppercase?: boolean,
-  verbose?: boolean,
-  process?: boolean,
-  inlineTypes?: boolean,
-  directory?: string,
-  replace?: boolean,
-  encoding?: BaseEncodingOptions['encoding'],
-  envFilename?: string,
-  envDefaultsFilename?: string,
-  envTypesFilename?: string
+  lowercase?: boolean;
+  uppercase?: boolean;
+  verbose?: boolean;
+  process?: boolean;
+  inlineTypes?: boolean;
+  directory?: string;
+  replace?: boolean;
+  encoding?: ObjectEncodingOptions['encoding'];
+  envFilename?: string;
+  envDefaultsFilename?: string;
+  envTypesFilename?: string;
 }): {
   [key: string]: unknown;
 } {
-
   if (typeof options !== 'object') {
     options = {};
   }
@@ -80,13 +79,16 @@ export default function load(options?: {
   const defaults = parseFile(`${options.directory}/${options.envDefaultsFilename}`, options) || {};
 
   // Parse variable types for our env variables
-  const types = parseFile(`${options.directory}/${options.envTypesFilename}`, { ...options, inlineTypes: false }) || {};
+  const types
+    = parseFile(`${options.directory}/${options.envTypesFilename}`, {
+      ...options,
+      inlineTypes: false
+    }) || {};
 
-  const env: {[key: string]: unknown} = {};
+  const env: { [key: string]: unknown } = {};
 
   // First, entries for all default values defined in .env.defaults
   for (const [key, value] of Object.entries(defaults)) {
-
     env[key] = value;
 
     // If types aren't declared for these values, use the types parsed from the defaults file
@@ -102,15 +104,10 @@ export default function load(options?: {
 
   // Lastly, all values from the process env - allows overwriting the .env file with process env
   if (options.process === true) {
-
     for (let [key, value] of Object.entries(process.env)) {
-
       if (options.lowercase === true) {
-
         key = key.toLowerCase();
-
       } else if (options.uppercase === true) {
-
         key = key.toUpperCase();
       }
 
@@ -120,7 +117,6 @@ export default function load(options?: {
 
   // Cast values into the types specified in the .env.types file, or inline in .env.defaults
   for (const [key, intendedType] of Object.entries(types)) {
-
     if (env[key] === undefined) {
       continue;
     }

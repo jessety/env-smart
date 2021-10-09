@@ -1,7 +1,6 @@
 import { parse } from '../src';
 
 const tests = [
-
   // quotes
   {
     name: `parses quoted values`,
@@ -23,7 +22,7 @@ const tests = [
   {
     name: `parses JSON as an object when supplied with an inline type`,
     input: `JSON_OBJECT=object={"test": true, "string": "this is a string in an object"}`,
-    output: { JSON_OBJECT: { test: true, string: 'this is a string in an object' }}
+    output: { JSON_OBJECT: { test: true, string: 'this is a string in an object' } }
   },
   {
     name: `parses quoted JSON as a string`,
@@ -33,12 +32,12 @@ const tests = [
   {
     name: `parses quoted JSON as an object when suppied with an inline type`,
     input: `JSON_OBJECT=object="{"test": true, "string": "this is a string in an object"}"`,
-    output: { JSON_OBJECT: { test: true, string: 'this is a string in an object' }}
+    output: { JSON_OBJECT: { test: true, string: 'this is a string in an object' } }
   },
   {
     name: `parses unquoted number`,
     input: `ALLOWED_NUMBERS=array=[ 42, 7, 19, 29 ]`,
-    output: { ALLOWED_NUMBERS: [42, 7, 19, 29]}
+    output: { ALLOWED_NUMBERS: [42, 7, 19, 29] }
   },
 
   // =
@@ -73,21 +72,18 @@ const tests = [
   {
     name: `ignores lines without a = sign`,
     input: `KEY_WITHOUT_EQUALS`,
-    output: { }
+    output: {}
   },
   {
     name: `ignores lines with blank keys`,
     input: `=VALUE_WITHOUT_KEY`,
-    output: { }
+    output: {}
   }
 ];
 
 describe('parse function', () => {
-
   for (const { name, input, output } of tests) {
-
     test(name, () => {
-
       const parsed = parse(input);
 
       expect(parsed).toEqual(output);
