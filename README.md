@@ -111,9 +111,9 @@ require('env-smart').load({
   process: false, // if set to false, don't parse the process env, only dotfiles
   inlineTypes: false, // don't allow inline type declarations in .env or .env.defaults, e.g. PORT=number=8080
 
-  envFilename : '.env', //  manually specify .env file name
-  envDefaultsFilename : '.env.defaults', // manually specify .env.defaults file name
-  envTypesFilename : '.env.types' // manually specify .env.types file name
+  envFilename: '.env', //  manually specify .env file name
+  envDefaultsFilename: '.env.defaults', // manually specify .env.defaults file name
+  envTypesFilename: '.env.types' // manually specify .env.types file name
 });
 
 // The 'PORT' value has been re-named 'port' by including the `lowercase` option

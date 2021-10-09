@@ -20,5 +20,7 @@ for (const [key, value] of Object.entries(process.env)) {
 
 const log = process.env.VERBOSE ? (...messages) => console.log('DEBUG:', ...messages) : () => {};
 
-log('This will only be displayed if the `VERBOSE` env is set to true. If you\'re seeing this, it was!');
+log(
+  'This will only be displayed if the `VERBOSE` env is set to true. If you\'re seeing this, it was!'
+);
 log('Try "export VERBOSE=false && node index.js" to disable this message.');

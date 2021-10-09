@@ -33,7 +33,7 @@ ALLOWED_NUMBERS=array=[ 42, 7, 19, 29 ]`,
       TEST: true,
       WELCOME: 'Hello!',
       JSON_BLOB: { test: true, string: 'this is a string' },
-      ALLOWED_NUMBERS: [ 42, 7, 19, 29 ]
+      ALLOWED_NUMBERS: [42, 7, 19, 29]
     }
   },
   {
@@ -58,11 +58,8 @@ SAMPLE_VALUE=1234
 ];
 
 describe('parse function', () => {
-
   for (const { name, input, output } of tests) {
-
     test(name, () => {
-
       const parsed = parse(input);
 
       expect(parsed).toEqual(output);

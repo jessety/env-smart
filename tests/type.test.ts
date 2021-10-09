@@ -58,11 +58,8 @@ const tests = [
 ];
 
 describe('type function', () => {
-
   for (const { name, input, into, output } of tests) {
-
     test(name, () => {
-
       const result = type(input, into);
 
       expect(result).toEqual(output);
@@ -72,7 +69,6 @@ describe('type function', () => {
   // Handle errors
 
   test('returns input unchanged when presented with an unknown type', () => {
-
     const value = 'this is actually just a string';
     const intendedType = 'mystery';
 
@@ -82,7 +78,6 @@ describe('type function', () => {
   });
 
   test('prints an error when parsing invalid JSON string in verbose mode', () => {
-
     const spy = jest.spyOn(console, 'warn').mockImplementation();
 
     type('{test":true}', 'object', { verbose: true });
@@ -94,7 +89,6 @@ describe('type function', () => {
   });
 
   test('doesn\'t print an error when parsing invalid JSON string when not in verbose mode', () => {
-
     const spy = jest.spyOn(console, 'warn').mockImplementation();
 
     type('{test":true}', 'object', { verbose: false });

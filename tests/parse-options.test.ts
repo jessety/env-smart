@@ -38,11 +38,8 @@ const tests = [
 ];
 
 describe('parse function', () => {
-
   for (const { name, input, output, options } of tests) {
-
     test(name, () => {
-
       const parsed = parse(input, options);
 
       expect(parsed).toEqual(output);
