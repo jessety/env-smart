@@ -36,19 +36,25 @@
   ],
   "scripts": {
     "build": "npm run clean && tsc",
+    "clean": "rimraf lib",
+    "format": "sort-package-json && prettier --write '**/*.{ts,js,mjs,cjs,json,yml,md}' && eslint --fix .",
     "lint": "eslint .",
-    "test": "jest",
-    "clean": "rimraf lib"
+    "prepare": "husky install",
+    "test": "jest"
   },
   "devDependencies": {
-    "@jessety/eslint-config": "^1.0.6",
-    "@types/jest": "^26.0.13",
-    "@types/node": "^14.6.4",
+    "@jessety/eslint-config": "^2.2.2",
+    "@jessety/prettier-config": "^1.1.0",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^16.10.3",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.1",
     "eslint": "^7.8.1",
-    "jest": "^26.4.0",
-    "ts-jest": "^26.2.0",
+    "husky": "^7.0.0",
+    "jest": "^27.2.5",
+    "lint-staged": "^11.2.2",
+    "sort-package-json": "^1.52.0",
+    "ts-jest": "^27.0.5",
     "typescript": "^4.0.2"
   }
 }
