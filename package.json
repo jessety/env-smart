@@ -47,8 +47,6 @@
     "@jessety/prettier-config": "^1.1.0",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.10.3",
-    "@typescript-eslint/eslint-plugin": "^4.0.1",
-    "@typescript-eslint/parser": "^4.0.1",
     "eslint": "^7.8.1",
     "husky": "^7.0.0",
     "jest": "^27.2.5",
