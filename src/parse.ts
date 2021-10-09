@@ -7,7 +7,7 @@ import fs, { ObjectEncodingOptions } from 'fs';
  * @returns {object} - A key-value dictionary representation of the env file contents
  */
 function parseFile(
-  path = '',
+  path: string,
   options?: {
     verbose?: boolean;
     encoding?: ObjectEncodingOptions['encoding'];
