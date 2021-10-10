@@ -78,6 +78,8 @@ jobs:
         with:
           node-version: 14.x
           registry-url: 'https://registry.npmjs.org'
+      - name: Install dependencies
+        run: npm install
       - name: Download build
         uses: actions/download-artifact@v2
         with:
@@ -85,7 +87,7 @@ jobs:
       - name: Unarchive build
         run: tar -xzf ./lib.tar.gz
       - name: Publish
-        run: npm publish
+        run: npm publish --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Create a repository secret named NPM_TOKEN containing an npm access token
 
@@ -103,6 +105,8 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           always-auth: true
           scope: '@jessety'
+      - name: Install dependencies
+        run: npm install
       - name: Download build
         uses: actions/download-artifact@v2
         with:
@@ -112,7 +116,7 @@ jobs:
       - name: Scope Package
         run: echo $(cat package.json | jq '.name= "@jessety/\(.name)"') > package.json
       - name: Publish
-        run: npm publish --registry=https://npm.pkg.github.com/@jessety
+        run: npm publish --ignore-scripts --registry=https://npm.pkg.github.com/@jessety
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by GitHub, and requires no setup
 
