@@ -1,6 +1,6 @@
 {
   "name": "env-smart",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "Zero-dependency library for loading .env files. Supports default values and type definitions.",
   "keywords": [
     ".env",
