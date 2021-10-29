@@ -1,5 +1,5 @@
 import type from './type';
-import fs, { ObjectEncodingOptions } from 'fs';
+import fs from 'fs';
 
 /**
  * Parse the contents of an env file
@@ -10,7 +10,7 @@ function parseFile(
   path: string,
   options?: {
     verbose?: boolean;
-    encoding?: ObjectEncodingOptions['encoding'];
+    encoding?: BufferEncoding;
     inlineTypes?: boolean;
   }
 ): { [key: string]: unknown } | undefined {

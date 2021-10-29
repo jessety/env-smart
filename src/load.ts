@@ -1,6 +1,5 @@
 import { parseFile } from './parse';
 import type from './type';
-import { ObjectEncodingOptions } from 'fs';
 
 /**
  * Load env values
@@ -15,7 +14,7 @@ export default function load(options?: {
   inlineTypes?: boolean;
   directory?: string;
   replace?: boolean;
-  encoding?: ObjectEncodingOptions['encoding'];
+  encoding?: BufferEncoding;
   envFilename?: string;
   envDefaultsFilename?: string;
   envTypesFilename?: string;
