@@ -43,7 +43,7 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@jessety/eslint-config": "^2.2.4",
+    "@jessety/eslint-config": "^2.2.5",
     "@jessety/prettier-config": "^1.1.0",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.6",
