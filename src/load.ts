@@ -1,12 +1,10 @@
 import { parseFile } from './parse';
-import type from './type';
+import { type } from './type';
 
 /**
- * Load env values
- * @param   {object} [parameters] - Loading options
- * @returns {object} - Object containing env values found in a .env file (or the process )
+ * Options for loading env values
  */
-export default function load(options?: {
+export type loadOptions = {
   lowercase?: boolean;
   uppercase?: boolean;
   verbose?: boolean;
@@ -18,7 +16,14 @@ export default function load(options?: {
   envFilename?: string;
   envDefaultsFilename?: string;
   envTypesFilename?: string;
-}): {
+};
+
+/**
+ * Load env values
+ * @param   {object} [options] - Loading options
+ * @returns {object} - Object containing env values found in a .env file (or the process )
+ */
+export function load(options?: loadOptions): {
   [key: string]: unknown;
 } {
   if (typeof options !== 'object') {

@@ -1,4 +1,4 @@
-import type from './type';
+import { type } from './type';
 import fs from 'fs';
 
 /**
