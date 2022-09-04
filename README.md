@@ -12,7 +12,7 @@ Zero-dependency library for using .env files with types and default values
 - Variable types
 - Default values
 
-In both sitautions, logic specific to the configuration (type casting, default checking) ends up seeping into the application logic. If any of these values are re-used in different parts of the app this can even lead to duplication.
+In both situations, logic specific to the configuration (type casting, default checking) ends up seeping into the application logic. If any of these values are re-used in different parts of the app this can even lead to duplication.
 
 Instead, `env-smart` enables declaring default values and types for all environmental variables in additional configuration files. It loads the contents of the `.env` file if present, but defaults and type checking are applied to the process' env if not.
 
@@ -37,12 +37,40 @@ require('env-smart').load();
 console.log(process.env.PORT);
 ```
 
-Using a `.env` files to store environmental variables makes managing different configurations between deployments much easier. Example file:
+Using a `.env` file to store environmental variables makes managing different configurations between deployments much easier. Example file:
 
 ```ini
 PORT=8080
 VERBOSE=TRUE
 API_KEY=xyz
+```
+
+### Strictly Typed Configuration
+
+IF you're using TypeScript, the `config` function makes parsing strictly typed configurations simple:
+
+```typescript
+import envSmart from 'env-smart';
+
+// Define config type
+export type Configuration = {
+  host: string;
+  port: number;
+  verbose: boolean;
+};
+
+// Transform the dictionary into a configuration type
+export const config = envSmart.config<Configuration>((env) => {
+  // `env` is now populated from the .env file, process env, and defaults
+  return {
+    host: env.HOST,
+    port: env.PORT,
+    verbose: env.VERBOSE,
+  };
+});
+
+// `config` is now strictly typed
+console.log(`Host: ${config.host} port: ${config.port} verbose: ${config.verbose} `);
 ```
 
 ### Types and Defaults

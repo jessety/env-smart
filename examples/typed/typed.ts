@@ -16,7 +16,7 @@ export const config = env.config<Configuration>((env) => {
   };
 });
 
-// `config` is now a fully typed config file fully populated via
+// `config` is now a fully typed config file fully populated via the `.env` file and the process env
 
 console.log(
   `Host: ${config.host} port: ${config.port} verbose: ${config.verbose} `,
