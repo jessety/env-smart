@@ -5,7 +5,7 @@
  * @param   {object}                             [options] Additional options. Optional.
  * @returns {string|boolean|number|object|Array} The value casted into the specified type.
  */
-export default function type(
+export function type(
   value: string,
   type: string,
   options?: { verbose?: boolean }
