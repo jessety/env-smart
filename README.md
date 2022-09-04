@@ -47,7 +47,7 @@ API_KEY=xyz
 
 ### Strictly Typed Configuration
 
-IF you're using TypeScript, the `config` function makes parsing strictly typed configurations simple:
+If you're using TypeScript, the `config` function makes parsing strictly typed configurations simple:
 
 ```typescript
 import envSmart from 'env-smart';
