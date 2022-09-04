@@ -12,13 +12,11 @@ export const config = env.config<Configuration>((env) => {
   return {
     host: env.HOST,
     port: env.PORT,
-    verbose: env.VERBOSE,
+    verbose: env.VERBOSE
   };
 });
 
 // `config` is now a fully typed config file fully populated via the `.env` file and the process env
 
-console.log(
-  `Host: ${config.host} port: ${config.port} verbose: ${config.verbose} `,
-);
+console.log(`Host: ${config.host} port: ${config.port} verbose: ${config.verbose} `);
 console.dir(config);

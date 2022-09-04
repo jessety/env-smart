@@ -5,11 +5,7 @@
  * @param   {object}                             [options] Additional options. Optional.
  * @returns {string|boolean|number|object|Array} The value casted into the specified type.
  */
-export function type(
-  value: string,
-  type: string,
-  options?: { verbose?: boolean }
-): unknown {
+export function type(value: string, type: string, options?: { verbose?: boolean }): unknown {
   type = type.toLowerCase();
 
   if (typeof value === type) {

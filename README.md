@@ -65,7 +65,7 @@ export const config = envSmart.config<Configuration>((env) => {
   return {
     host: env.HOST,
     port: env.PORT,
-    verbose: env.VERBOSE,
+    verbose: env.VERBOSE
   };
 });
 

@@ -1,12 +1,11 @@
 jest.mock('../src/load');
 import { mocked } from 'jest-mock';
 import { config } from '../src/index';
-import { load } from '../src/load'
+import { load } from '../src/load';
 
-const loadMocked = mocked(load, true)
+const loadMocked = mocked(load, true);
 
 describe('config() function', () => {
-
   test(`properly returns typed env`, () => {
     loadMocked.mockReturnValue({
       PORT: 8080,
@@ -17,7 +16,7 @@ describe('config() function', () => {
     const typed = config<{
       host: string;
       port: number;
-      verbose: boolean
+      verbose: boolean;
     }>((env) => {
       return {
         host: env.HOST,
