@@ -13,11 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: 16.x
+          node-version: 20.x
       - name: Install dependencies
         run: npm install
       - name: Build project
@@ -25,7 +25,7 @@ jobs:
       - name: Archive build # https://github.com/actions/upload-artifact#maintaining-file-permissions-and-case-sensitive-files
         run: tar -czvf lib.tar.gz ./lib
       - name: Upload build
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: build
           path: ./lib.tar.gz
@@ -38,12 +38,12 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node: [18.x, 16.x, 14.x, 12.x]
+        node: [21.x, 20.x, 18.x, 16.x, 14.x]
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node ${{ matrix.node }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
       - name: Install dependencies
@@ -56,11 +56,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: 16.x
+          node-version: 20.x
       - name: Install dependencies
         run: npm install
       - name: Lint
@@ -72,16 +72,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: 16.x
+          node-version: 20.x
           registry-url: 'https://registry.npmjs.org'
       - name: Install dependencies
         run: npm install
       - name: Download build
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: build
       - name: Unarchive build
@@ -97,11 +97,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: 16.x
+          node-version: 20.x
           registry-url: https://npm.pkg.github.com/
           always-auth: true
           scope: '@jessety'
@@ -110,7 +110,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GPR_TOKEN }}
       - name: Download build
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: build
       - name: Unarchive build
@@ -128,7 +128,7 @@ jobs:
     needs: ['publish-npm', 'publish-gpr']
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Git history won't be fetched without this option
       - name: Generate release notes # To change the release notes format, edit RELEASE.md.hbs
