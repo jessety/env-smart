@@ -3,7 +3,7 @@ import { mocked } from 'jest-mock';
 import { config } from '../src/index';
 import { load } from '../src/load';
 
-const loadMocked = mocked(load, true);
+const loadMocked = mocked(load);
 
 describe('config() function', () => {
   test(`properly returns typed env`, () => {
